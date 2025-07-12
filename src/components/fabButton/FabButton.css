@@ -9,6 +9,7 @@
     box-shadow: 0 0px 5px 0 rgba(0, 0, 0, 0.3);
     color: #FFF;
     display: flex;
+    z-index: 100;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -29,7 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 200;
     animation: fadeIn 0.3s ease;
 }
 

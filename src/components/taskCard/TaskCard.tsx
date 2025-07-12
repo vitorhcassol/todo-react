@@ -2,14 +2,14 @@ import { mdiCalendarMonthOutline, mdiTimerOutline, mdiPlus, mdiTrashCanOutline }
 import Icon from "@mdi/react";
 import { useState } from 'react';
 import { useTaskStore } from '../../stores/taskStore';
-import type { Task } from '../../types/task';
+import type { Task, Subtask } from '../../types/task';
 
 import AddSubtaskForm from '../addSubtaskForm/AddSubtaskForm';
 
 import './TaskCard.css';
 
 function TaskCard({ task }: { task: Task }) {
-    const { toggleTask, toggleSubtask, deleteTask } = useTaskStore();
+    const { toggleTask, toggleSubtask, deleteTask, addSubtasks } = useTaskStore();
     const [isAddSubtaskModalOpen, setIsAddSubtaskModalOpen] = useState(false);
 
     const handleTaskToggle = () => {
@@ -26,6 +26,15 @@ function TaskCard({ task }: { task: Task }) {
 
     const handleTaskActions = () => {
         deleteTask(task.id);
+    };
+
+    const handleCloseSubtaskModal = () => {
+        setIsAddSubtaskModalOpen(false);
+    };
+
+    const handleSaveSubtasks = (subtasks: Subtask[]) => {
+        addSubtasks(task.id, subtasks);
+        setIsAddSubtaskModalOpen(false);
     };
 
     return (
@@ -84,7 +93,11 @@ function TaskCard({ task }: { task: Task }) {
                 </div>
             </div>
             {isAddSubtaskModalOpen && (
-                <AddSubtaskForm onSubtaskAdded={() => setIsAddSubtaskModalOpen(false)} />
+                <AddSubtaskForm 
+                    onClose={handleCloseSubtaskModal}
+                    onSave={handleSaveSubtasks}
+                    initialSubtasks={task.subtasks || []}
+                />
             )}
         </li>
     )

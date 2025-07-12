@@ -20,5 +20,6 @@ export interface TaskStore {
   deleteTask: (id: number) => void;
   toggleTask: (id: number) => void;
   toggleSubtask: (taskId: number, subtaskId: number) => void;
+  addSubtasks: (taskId: number, subtasks: Subtask[]) => void;
   getTasksByDate: (date: string) => Task[];
 } 

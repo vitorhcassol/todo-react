@@ -103,8 +103,6 @@ function AddTaskForm({ onTaskAdded }: AddTaskFormProps) {
                     className="form-input"
                 />
             </div>
-            
-            {/* Subtasks Section */}
             <div className="form-group">
                 <label className="form-label">Subtasks (optional)</label>
                 <div className="subtask-input-container">

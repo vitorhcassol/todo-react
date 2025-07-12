@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Task, TaskStore } from '../types/task';
+import type { Task, TaskStore, Subtask } from '../types/task';
 
 const initialTasks: Task[] = [];
 
@@ -49,6 +49,20 @@ export const useTaskStore = create<TaskStore>((set, get) => ({
                 ? { ...subtask, completed: !subtask.completed }
                 : subtask
             )
+          };
+        }
+        return task;
+      })
+    }));
+  },
+
+  addSubtasks: (taskId, subtasks) => {
+    set((state) => ({
+      tasks: state.tasks.map(task => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            subtasks: [...(task.subtasks || []), ...subtasks]
           };
         }
         return task;
